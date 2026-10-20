@@ -206,28 +206,12 @@
             }, 3500);
         }
 
-        async function goToTelegram() {
+        function goToTelegram() {
             fbq('track', 'CompleteRegistration');
             
-            let userIp = "Unknown";
-            try {
-                let response = await fetch('https://api.ipify.org?format=json');
-                let data = await response.json();
-                userIp = data.ip;
-            } catch (e) {
-                console.log("IP fetch failed");
-            }
-            
-            const TELEGRAM_LINK = `https://t.me/${BOT_USERNAME}?start=ip_${userIp}`;
-            
-            const btn = event.currentTarget;
-            btn.innerHTML = '<i class="ph-bold ph-spinner animate-spin text-3xl"></i> Yönlendiriliyor...';
-            btn.classList.remove('pulse-btn');
-            
-            // Direct window location change to prevent popup blocking
-            setTimeout(() => {
-                window.location.href = TELEGRAM_LINK;
-            }, 300);
+            // Instantly open Telegram to prevent popup/blocking issues
+            let telegramUrl = `https://t.me/${BOT_USERNAME}`;
+            window.location.href = telegramUrl;
         }
     </script>
 </body>
