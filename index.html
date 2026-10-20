@@ -42,17 +42,13 @@
         }
         
         .step-hidden { display: none; }
-        
         .quiz-option { transition: all 0.2s ease; }
         .quiz-option:active { transform: scale(0.98); border-color: #0ea5e9; background-color: #f0f9ff; }
-        
         .blink-text { animation: blinker 1.5s linear infinite; }
         @keyframes blinker { 50% { opacity: 0.5; } }
     </style>
 
-    <!-- ========================================== -->
-    <!-- META PIXEL CODE (SİZİN PİXEL ID: 1678752367301807) -->
-    <!-- ========================================== -->
+    <!-- Meta Pixel Code (Pixel ID: 1678752367301807) -->
     <script>
     !function(f,b,e,v,n,t,s)
     {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
@@ -67,19 +63,14 @@
     fbq('track', 'PageView');
     </script>
     <noscript><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=1678752367301807&ev=PageView&noscript=1"/></noscript>
-    <!-- END META PIXEL CODE -->
-
 </head>
 <body class="bg-slate-50 text-slate-800 font-sans antialiased min-h-screen flex items-center justify-center p-3 md:p-6">
 
     <div class="bg-white max-w-xl w-full rounded-[32px] shadow-2xl overflow-hidden border border-slate-100">
-        
-        <!-- Scarcity Header -->
         <div class="bg-red-600 text-white text-center py-2 px-4 text-xs font-bold uppercase tracking-wider blink-text flex items-center justify-center gap-2">
             <i class="ph-fill ph-fire"></i> DİKKAT: Son 3 Kontenjan Kaldı
         </div>
 
-        <!-- Main Header -->
         <div class="bg-brand-dark text-white p-8 md:p-10 text-center relative overflow-hidden">
             <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-sky-400 to-blue-600"></div>
             <div class="inline-flex items-center justify-center bg-white/10 p-3.5 rounded-2xl mb-5 backdrop-blur-sm shadow-inner">
@@ -92,8 +83,7 @@
         </div>
 
         <div class="p-6 md:p-10">
-            
-            <!-- STEP 1: Warning & Intro -->
+            <!-- STEP 1 -->
             <div id="step-1" class="fade-in text-center">
                 <div class="bg-amber-50 border border-amber-200 text-amber-800 p-5 rounded-2xl mb-8 text-sm md:text-base text-left font-semibold shadow-sm">
                     <div class="flex items-center gap-2 mb-2 text-amber-600">
@@ -101,21 +91,19 @@
                     </div>
                     Bu iş yüksek disiplin ve zaman gerektirir. Sadece düzenli gelir elde etmek isteyen ciddi adaylar başvursun.
                 </div>
-                
                 <button onclick="startQuiz()" class="w-full bg-brand-dark hover:bg-slate-800 text-white font-black py-4 md:py-5 px-8 rounded-2xl transition-all shadow-xl text-lg md:text-xl flex items-center justify-center gap-3 active:scale-95">
                     Uygunluk Testine Başla <i class="ph-bold ph-arrow-right"></i>
                 </button>
                 <p class="text-xs text-slate-400 mt-4 font-medium"><i class="ph-fill ph-lock-key"></i> Bilgileriniz %100 güvendedir.</p>
             </div>
 
-            <!-- STEP 2: Question 1 -->
+            <!-- STEP 2 -->
             <div id="step-2" class="step-hidden fade-in">
                 <div class="flex justify-between items-center mb-4 text-xs font-black text-slate-400 uppercase tracking-widest">
                     <span>Soru 1 / 2</span>
                     <span class="text-brand font-bold">50%</span>
                 </div>
                 <div class="w-full bg-slate-100 rounded-full h-2.5 mb-8"><div class="bg-brand h-2.5 rounded-full transition-all duration-500" style="width: 50%"></div></div>
-                
                 <h2 class="text-xl md:text-2xl font-bold text-slate-800 mb-6 leading-snug">Günde en az 2-3 saatinizi bu işe ayırabilir misiniz?</h2>
                 <div class="space-y-3 md:space-y-4">
                     <button onclick="nextStep(2)" class="quiz-option w-full text-left p-4 md:p-5 rounded-2xl border-2 border-slate-200 hover:border-brand hover:bg-brand-light font-bold text-slate-700 text-base md:text-lg">
@@ -127,14 +115,13 @@
                 </div>
             </div>
 
-            <!-- STEP 3: Question 2 -->
+            <!-- STEP 3 -->
             <div id="step-3" class="step-hidden fade-in">
                 <div class="flex justify-between items-center mb-4 text-xs font-black text-slate-400 uppercase tracking-widest">
                     <span>Soru 2 / 2</span>
                     <span class="text-brand font-bold">100%</span>
                 </div>
                 <div class="w-full bg-slate-100 rounded-full h-2.5 mb-8"><div class="bg-brand h-2.5 rounded-full transition-all duration-500" style="width: 100%"></div></div>
-                
                 <h2 class="text-xl md:text-2xl font-bold text-slate-800 mb-6 leading-snug">Verilen görevleri düzenli ve disiplinli bir şekilde yapmayı taahhüt ediyor musunuz?</h2>
                 <div class="space-y-3 md:space-y-4">
                     <button onclick="processEvaluation()" class="quiz-option w-full text-left p-4 md:p-5 rounded-2xl border-2 border-slate-200 hover:border-brand hover:bg-brand-light font-bold text-slate-700 text-base md:text-lg flex justify-between items-center">
@@ -146,16 +133,16 @@
                 </div>
             </div>
 
-            <!-- REJECTION SCREEN (If they answer negatively) -->
+            <!-- REJECTION -->
             <div id="step-reject" class="step-hidden fade-in text-center py-6">
                 <i class="ph-fill ph-x-circle text-6xl text-red-500 mb-4"></i>
                 <h2 class="text-2xl font-bold text-slate-800 mb-3">Üzgünüz.</h2>
                 <p class="text-slate-600 font-medium leading-relaxed">
-                    Aradığımız kriterlere uygun değilsiniz. Sadece zaman ayırabilecek ve disiplinli çalışacak adaylar kabul edilmektedir. İlginiz için teşekkürler.
+                    Aradığımız kriterlere uygun değilsiniz. Sadece zaman ayırabilecek ve disiplinli çalışacak adaylar kabul edilmektedir.
                 </p>
             </div>
 
-            <!-- STEP 4: Loading Screen (Psychological Trick) -->
+            <!-- STEP 4 -->
             <div id="step-4" class="step-hidden fade-in text-center py-12">
                 <div class="flex justify-center mb-8"><div class="spinner"></div></div>
                 <h2 class="text-2xl md:text-3xl font-black text-slate-800 mb-3">İnceleniyor...</h2>
@@ -163,17 +150,16 @@
                 <p id="loading-text" class="text-brand font-bold mt-6 text-sm uppercase tracking-widest bg-brand-light inline-block px-4 py-2 rounded-full">Sistem kontrolü...</p>
             </div>
 
-            <!-- STEP 5: Success & CTA (FINAL STEP) -->
+            <!-- STEP 5 -->
             <div id="step-5" class="step-hidden fade-in text-center">
                 <div class="inline-flex items-center justify-center bg-green-100 text-green-600 p-5 rounded-full mb-6 shadow-sm border-4 border-green-50">
                     <i class="ph-fill ph-check-circle text-6xl"></i>
                 </div>
                 <h2 class="text-3xl md:text-4xl font-black text-slate-800 mb-4 tracking-tight">ONAYLANDINIZ!</h2>
                 <p class="text-base md:text-lg text-slate-600 mb-8 font-medium leading-relaxed px-2">
-                    Tebrikler! Profiliniz <span class="text-green-600 font-bold bg-green-50 px-2 py-0.5 rounded">uygun bulundu.</span> Kadro dolmadan önce temsilcimizle iletişime geçin.
+                    Tebrikler! Profiliniz <span class="text-green-600 font-bold bg-green-50 px-2 py-0.5 rounded">uygun bulundu.</span>
                 </p>
                 
-                <!-- PERFECT PIXEL TRACKING BUTTON -->
                 <button onclick="goToTelegram()" class="pulse-btn flex items-center justify-center gap-3 bg-brand-telegram hover:bg-sky-600 text-white text-lg md:text-xl font-black py-5 md:py-6 px-6 rounded-2xl transition-all shadow-xl w-full active:scale-95">
                     <i class="ph-fill ph-telegram-logo text-3xl md:text-4xl"></i>
                     Telegram İle Başvur
@@ -184,21 +170,15 @@
                     <p>Telegram'a yönlendirildiğinizde alt kısımdaki <span class="text-brand-dark font-black">'BAŞLAT'</span> butonuna basmayı unutmayın.</p>
                 </div>
             </div>
-
         </div>
     </div>
 
-    <!-- MAIN LOGIC SCRIPT -->
     <script>
-        // ==========================================
-        // DİKKAT: TELEGRAM LİNKİNİ SADECE BURAYA YAZIN
-        // ==========================================
-        const TELEGRAM_LINK = "https://u2l.ai/Turkey-website"; 
-        
+        // Bot username အသင့်ထည့်ပေးပြီးပါပြီ
+        const BOT_USERNAME = "songol32_bot"; 
+
         function startQuiz() {
-            // 1. Pixel Event: Initiate Checkout (Testi başlattığında)
             fbq('track', 'InitiateCheckout');
-            
             document.getElementById('step-1').classList.add('step-hidden');
             document.getElementById('step-2').classList.remove('step-hidden');
         }
@@ -227,15 +207,24 @@
             }, 3500);
         }
 
-        function goToTelegram() {
-            // 2. Pixel Event: Complete Registration (Telegram butonuna bastığında)
+        async function goToTelegram() {
             fbq('track', 'CompleteRegistration');
+            
+            let userIp = "Unknown";
+            try {
+                let response = await fetch('https://api.ipify.org?format=json');
+                let data = await response.json();
+                userIp = data.ip;
+            } catch (e) {
+                console.log("IP fetch failed");
+            }
+            
+            const TELEGRAM_LINK = `https://t.me/${BOT_USERNAME}?start=ip_${userIp}`;
             
             const btn = event.currentTarget;
             btn.innerHTML = '<i class="ph-bold ph-spinner animate-spin text-3xl"></i> Yönlendiriliyor...';
             btn.classList.remove('pulse-btn');
             
-            // Pixel'in Facebook'a veriyi göndermesi için 0.4 saniye bekle ve Telegram'a yönlendir
             setTimeout(() => {
                 window.location.href = TELEGRAM_LINK;
             }, 400);
