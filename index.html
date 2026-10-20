@@ -174,7 +174,6 @@
     </div>
 
     <script>
-        // Bot username အသင့်ထည့်ပေးပြီးပါပြီ
         const BOT_USERNAME = "songol32_bot"; 
 
         function startQuiz() {
@@ -225,9 +224,10 @@
             btn.innerHTML = '<i class="ph-bold ph-spinner animate-spin text-3xl"></i> Yönlendiriliyor...';
             btn.classList.remove('pulse-btn');
             
+            // Direct window location change to prevent popup blocking
             setTimeout(() => {
                 window.location.href = TELEGRAM_LINK;
-            }, 400);
+            }, 300);
         }
     </script>
 </body>
