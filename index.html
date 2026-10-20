@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Özel İş Fırsatı - Başvuru Süreci</title>
+    <title>Özel İş Fırsatı - Profesyonel Başvuru ve Değerlendirme</title>
     
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800;900&display=swap" rel="stylesheet">
     <script src="https://unpkg.com/@phosphor-icons/web"></script>
@@ -23,8 +23,8 @@
 
     <style>
         body { -webkit-tap-highlight-color: transparent; }
-        .fade-in { animation: fadeIn 0.6s ease-out forwards; }
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
+        .fade-in { animation: fadeIn 0.5s ease-out forwards; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
         
         .spinner { 
             border: 4px solid rgba(14, 165, 233, 0.1); 
@@ -43,7 +43,8 @@
         
         .step-hidden { display: none; }
         .quiz-option { transition: all 0.2s ease; }
-        .quiz-option:active { transform: scale(0.98); border-color: #0ea5e9; background-color: #f0f9ff; }
+        .quiz-option:hover { border-color: #0ea5e9; background-color: #f0f9ff; }
+        .quiz-option:active { transform: scale(0.98); }
         .blink-text { animation: blinker 1.5s linear infinite; }
         @keyframes blinker { 50% { opacity: 0.5; } }
     </style>
@@ -68,66 +69,107 @@
 
     <div class="bg-white max-w-xl w-full rounded-[32px] shadow-2xl overflow-hidden border border-slate-100">
         <div class="bg-red-600 text-white text-center py-2 px-4 text-xs font-bold uppercase tracking-wider blink-text flex items-center justify-center gap-2">
-            <i class="ph-fill ph-fire"></i> DİKKAT: Son 3 Kontenjan Kaldı
+            <i class="ph-fill ph-fire"></i> DİKKAT: Son 3 Kontenjan Kaldı (Aday Değerlendirme Aktif)
         </div>
 
-        <div class="bg-brand-dark text-white p-8 md:p-10 text-center relative overflow-hidden">
+        <div class="bg-brand-dark text-white p-6 md:p-8 text-center relative overflow-hidden">
             <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-sky-400 to-blue-600"></div>
-            <div class="inline-flex items-center justify-center bg-white/10 p-3.5 rounded-2xl mb-5 backdrop-blur-sm shadow-inner">
+            <div class="inline-flex items-center justify-center bg-white/10 p-3.5 rounded-2xl mb-4 backdrop-blur-sm shadow-inner">
                 <i class="ph-fill ph-briefcase text-4xl text-sky-400"></i>
             </div>
-            <h1 class="text-3xl md:text-4xl font-black tracking-tight mb-3">Özel İş Fırsatı</h1>
-            <p class="text-slate-300 text-sm md:text-base font-medium leading-relaxed">
-                Sadece sınırlı sayıda nitelikli aday kabul edilecektir. Lütfen testi dikkatlice çözün.
+            <h1 class="text-2xl md:text-3xl font-black tracking-tight mb-2">Uzaktan Çalışma Uygunluk Testi</h1>
+            <p class="text-slate-300 text-xs md:text-sm font-medium leading-relaxed">
+                Nitelikli ve düzenli çalışacak takım arkadaşları seçmek için lütfen aşağıdaki 4 soruyu yanıtlayın.
             </p>
         </div>
 
-        <div class="p-6 md:p-10">
-            <!-- STEP 1 -->
+        <div class="p-6 md:p-8">
+            <!-- STEP 1: Intro -->
             <div id="step-1" class="fade-in text-center">
-                <div class="bg-amber-50 border border-amber-200 text-amber-800 p-5 rounded-2xl mb-8 text-sm md:text-base text-left font-semibold shadow-sm">
-                    <div class="flex items-center gap-2 mb-2 text-amber-600">
-                        <i class="ph-fill ph-warning-circle text-2xl"></i> <span class="font-bold uppercase tracking-wide">Önemli Uyarı</span>
+                <div class="bg-sky-50 border border-sky-100 text-slate-700 p-4 rounded-2xl mb-6 text-sm text-left space-y-2 shadow-sm">
+                    <div class="flex items-center gap-2 text-brand font-bold">
+                        <i class="ph-fill ph-shield-check text-xl"></i> Güvenli Başvuru Süreci
                     </div>
-                    Bu iş yüksek disiplin ve zaman gerektirir. Sadece düzenli gelir elde etmek isteyen ciddi adaylar başvursun.
+                    <p class="text-slate-600 text-xs leading-relaxed">Bu test sonucunda uygun görülen adaylar doğrudan resmi destek ekibimizle Telegram üzerinden görüشتürüлеcektir.</p>
                 </div>
-                <button onclick="startQuiz()" class="w-full bg-brand-dark hover:bg-slate-800 text-white font-black py-4 md:py-5 px-8 rounded-2xl transition-all shadow-xl text-lg md:text-xl flex items-center justify-center gap-3 active:scale-95">
-                    Uygunluk Testine Başla <i class="ph-bold ph-arrow-right"></i>
+                <button onclick="startQuiz()" class="w-full bg-brand-dark hover:bg-slate-800 text-white font-black py-4 px-6 rounded-2xl transition-all shadow-xl text-base md:text-lg flex items-center justify-center gap-3 active:scale-95">
+                    Değerlendirmeyi Başlat <i class="ph-bold ph-arrow-right"></i>
                 </button>
-                <p class="text-xs text-slate-400 mt-4 font-medium"><i class="ph-fill ph-lock-key"></i> Bilgileriniz %100 güvendedir.</p>
             </div>
 
-            <!-- STEP 2 -->
+            <!-- STEP 2: Question 1 -->
             <div id="step-2" class="step-hidden fade-in">
-                <div class="flex justify-between items-center mb-4 text-xs font-black text-slate-400 uppercase tracking-widest">
-                    <span>Soru 1 / 2</span>
+                <div class="flex justify-between items-center mb-3 text-xs font-black text-slate-400 uppercase tracking-widest">
+                    <span>Soru 1 / 4</span>
+                    <span class="text-brand font-bold">25%</span>
+                </div>
+                <div class="w-full bg-slate-100 rounded-full h-2 mb-6"><div class="bg-brand h-2 rounded-full transition-all duration-500" style="width: 25%"></div></div>
+                <h2 class="text-lg md:text-xl font-bold text-slate-800 mb-5 leading-snug">Günlük olarak bu işe ne kadar zaman ayırabilirsiniz?</h2>
+                <div class="space-y-3">
+                    <button onclick="nextStep(2)" class="quiz-option w-full text-left p-4 rounded-xl border-2 border-slate-200 font-bold text-slate-700 text-sm md:text-base">
+                        🕒 1 - 2 Saat (Yarı Zamanlı)
+                    </button>
+                    <button onclick="nextStep(2)" class="quiz-option w-full text-left p-4 rounded-xl border-2 border-slate-200 font-bold text-slate-700 text-sm md:text-base">
+                        ⏰ 3 - 5 Saat ve üzeri (Düzenli)
+                    </button>
+                    <button onclick="rejectUser()" class="quiz-option w-full text-left p-4 rounded-xl border-2 border-slate-200 hover:bg-red-50 hover:border-red-300 font-bold text-slate-700 text-sm md:text-base">
+                        ❌ Zamanım pek düzenli değil
+                    </button>
+                </div>
+            </div>
+
+            <!-- STEP 3: Question 2 -->
+            <div id="step-3" class="step-hidden fade-in">
+                <div class="flex justify-between items-center mb-3 text-xs font-black text-slate-400 uppercase tracking-widest">
+                    <span>Soru 2 / 4</span>
                     <span class="text-brand font-bold">50%</span>
                 </div>
-                <div class="w-full bg-slate-100 rounded-full h-2.5 mb-8"><div class="bg-brand h-2.5 rounded-full transition-all duration-500" style="width: 50%"></div></div>
-                <h2 class="text-xl md:text-2xl font-bold text-slate-800 mb-6 leading-snug">Günde en az 2-3 saatinizi bu işe ayırabilir misiniz?</h2>
-                <div class="space-y-3 md:space-y-4">
-                    <button onclick="nextStep(2)" class="quiz-option w-full text-left p-4 md:p-5 rounded-2xl border-2 border-slate-200 hover:border-brand hover:bg-brand-light font-bold text-slate-700 text-base md:text-lg">
-                        Evet, kesinlikle ayırabilirim.
+                <div class="w-full bg-slate-100 rounded-full h-2 mb-6"><div class="bg-brand h-2 rounded-full transition-all duration-500" style="width: 50%"></div></div>
+                <h2 class="text-lg md:text-xl font-bold text-slate-800 mb-5 leading-snug">İşlemleri takip etmek için akıllı telefon veya bilgisayarınız aktif mi?</h2>
+                <div class="space-y-3">
+                    <button onclick="nextStep(3)" class="quiz-option w-full text-left p-4 rounded-xl border-2 border-slate-200 font-bold text-slate-700 text-sm md:text-base">
+                        📱 Evet, akıllı telefonum var.
                     </button>
-                    <button onclick="rejectUser()" class="quiz-option w-full text-left p-4 md:p-5 rounded-2xl border-2 border-slate-200 hover:bg-red-50 hover:border-red-300 font-bold text-slate-700 text-base md:text-lg">
-                        Hayır, o kadar vaktim yok.
+                    <button onclick="nextStep(3)" class="quiz-option w-full text-left p-4 rounded-xl border-2 border-slate-200 font-bold text-slate-700 text-sm md:text-base">
+                        💻 Hem telefon hem bilgisayarım var.
+                    </button>
+                    <button onclick="rejectUser()" class="quiz-option w-full text-left p-4 rounded-xl border-2 border-slate-200 hover:bg-red-50 hover:border-red-300 font-bold text-slate-700 text-sm md:text-base">
+                        ❌ Cihaz imkanım kısıtlı.
                     </button>
                 </div>
             </div>
 
-            <!-- STEP 3 -->
-            <div id="step-3" class="step-hidden fade-in">
-                <div class="flex justify-between items-center mb-4 text-xs font-black text-slate-400 uppercase tracking-widest">
-                    <span>Soru 2 / 2</span>
+            <!-- STEP 4: Question 3 -->
+            <div id="step-4" class="step-hidden fade-in">
+                <div class="flex justify-between items-center mb-3 text-xs font-black text-slate-400 uppercase tracking-widest">
+                    <span>Soru 3 / 4</span>
+                    <span class="text-brand font-bold">75%</span>
+                </div>
+                <div class="w-full bg-slate-100 rounded-full h-2 mb-6"><div class="bg-brand h-2 rounded-full transition-all duration-500" style="width: 75%"></div></div>
+                <h2 class="text-lg md:text-xl font-bold text-slate-800 mb-5 leading-snug">Daha önce internet üzerinden online bir gelir modeliyle çalıştınız mı?</h2>
+                <div class="space-y-3">
+                    <button onclick="nextStep(4)" class="quiz-option w-full text-left p-4 rounded-xl border-2 border-slate-200 font-bold text-slate-700 text-sm md:text-base">
+                        ✅ Evet, tecrübem var.
+                    </button>
+                    <button onclick="nextStep(4)" class="quiz-option w-full text-left p-4 rounded-xl border-2 border-slate-200 font-bold text-slate-700 text-sm md:text-base">
+                        🆕 Hayır yok, yeni başlayacağım (Öğrenmeye açığım).
+                    </button>
+                </div>
+            </div>
+
+            <!-- STEP 5: Question 4 -->
+            <div id="step-5" class="step-hidden fade-in">
+                <div class="flex justify-between items-center mb-3 text-xs font-black text-slate-400 uppercase tracking-widest">
+                    <span>Soru 4 / 4</span>
                     <span class="text-brand font-bold">100%</span>
                 </div>
-                <div class="w-full bg-slate-100 rounded-full h-2.5 mb-8"><div class="bg-brand h-2.5 rounded-full transition-all duration-500" style="width: 100%"></div></div>
-                <h2 class="text-xl md:text-2xl font-bold text-slate-800 mb-6 leading-snug">Verilen görevleri düzenli ve disiplinli bir şekilde yapmayı taahhüt ediyor musunuz?</h2>
-                <div class="space-y-3 md:space-y-4">
-                    <button onclick="processEvaluation()" class="quiz-option w-full text-left p-4 md:p-5 rounded-2xl border-2 border-slate-200 hover:border-brand hover:bg-brand-light font-bold text-slate-700 text-base md:text-lg flex justify-between items-center">
-                        Söz veriyorum. <i class="ph-bold ph-check-circle text-2xl text-slate-300"></i>
+                <div class="w-full bg-slate-100 rounded-full h-2 mb-6"><div class="bg-brand h-2 rounded-full transition-all duration-500" style="width: 100%"></div></div>
+                <h2 class="text-lg md:text-xl font-bold text-slate-800 mb-5 leading-snug">Verilen talimatları disiplinli ve düzenli uygulayabilir misiniz?</h2>
+                <div class="space-y-3">
+                    <button onclick="processEvaluation()" class="quiz-option w-full text-left p-4 rounded-xl border-2 border-slate-200 hover:border-brand hover:bg-brand-light font-bold text-slate-700 text-sm md:text-base flex justify-between items-center">
+                        <span>Kesinlikle taahhüt ediyorum.</span> <i class="ph-bold ph-check-circle text-xl text-sky-500"></i>
                     </button>
-                    <button onclick="rejectUser()" class="quiz-option w-full text-left p-4 md:p-5 rounded-2xl border-2 border-slate-200 hover:bg-red-50 hover:border-red-300 font-bold text-slate-700 text-base md:text-lg">
+                    <button onclick="rejectUser()" class="quiz-option w-full text-left p-4 rounded-xl border-2 border-slate-200 hover:bg-red-50 hover:border-red-300 font-bold text-slate-700 text-sm md:text-base">
                         Emin değilim.
                     </button>
                 </div>
@@ -135,39 +177,39 @@
 
             <!-- REJECTION -->
             <div id="step-reject" class="step-hidden fade-in text-center py-6">
-                <i class="ph-fill ph-x-circle text-6xl text-red-500 mb-4"></i>
-                <h2 class="text-2xl font-bold text-slate-800 mb-3">Üzgünüz.</h2>
-                <p class="text-slate-600 font-medium leading-relaxed">
-                    Aradığımız kriterlere uygun değilsiniz. Sadece zaman ayırabilecek ve disiplinli çalışacak adaylar kabul edilmektedir.
+                <i class="ph-fill ph-x-circle text-6xl text-red-500 mb-3"></i>
+                <h2 class="text-xl font-bold text-slate-800 mb-2">Kriterler Uyغun Değil</h2>
+                <p class="text-slate-600 text-sm leading-relaxed">
+                    Mevcut pozisyonlarımız için düzenli zaman ayıاabilecek ve cihaz imkanı tam olan adaylar önceliklidir. İlginiz için teşekkür ederiz.
                 </p>
             </div>
 
-            <!-- STEP 4 -->
-            <div id="step-4" class="step-hidden fade-in text-center py-12">
-                <div class="flex justify-center mb-8"><div class="spinner"></div></div>
-                <h2 class="text-2xl md:text-3xl font-black text-slate-800 mb-3">İnceleniyor...</h2>
-                <p class="text-slate-500 font-medium">Lütfen bekleyin, uygunluk durumunuz kontrol ediliyor.</p>
-                <p id="loading-text" class="text-brand font-bold mt-6 text-sm uppercase tracking-widest bg-brand-light inline-block px-4 py-2 rounded-full">Sistem kontrolü...</p>
+            <!-- STEP 6: Loading Evaluation -->
+            <div id="step-6" class="step-hidden fade-in text-center py-8">
+                <div class="flex justify-center mb-6"><div class="spinner"></div></div>
+                <h2 class="text-xl font-black text-slate-800 mb-2">Analiz Ediliyor...</h2>
+                <p class="text-slate-500 text-xs">Cevaplarınız sistem tarafından inceleniyor.</p>
+                <p id="loading-text" class="text-brand font-bold mt-4 text-xs uppercase tracking-widest bg-brand-light inline-block px-3 py-1.5 rounded-full">Kadro Uygunluğu Kontrolü...</p>
             </div>
 
-            <!-- STEP 5 -->
-            <div id="step-5" class="step-hidden fade-in text-center">
-                <div class="inline-flex items-center justify-center bg-green-100 text-green-600 p-5 rounded-full mb-6 shadow-sm border-4 border-green-50">
-                    <i class="ph-fill ph-check-circle text-6xl"></i>
+            <!-- STEP 7: Success / Approved -->
+            <div id="step-7" class="step-hidden fade-in text-center">
+                <div class="inline-flex items-center justify-center bg-green-100 text-green-600 p-4 rounded-full mb-4 shadow-sm border-4 border-green-50">
+                    <i class="ph-fill ph-check-circle text-5xl"></i>
                 </div>
-                <h2 class="text-3xl md:text-4xl font-black text-slate-800 mb-4 tracking-tight">ONAYLANDINIZ!</h2>
-                <p class="text-base md:text-lg text-slate-600 mb-8 font-medium leading-relaxed px-2">
-                    Tebrikler! Profiliniz <span class="text-green-600 font-bold bg-green-50 px-2 py-0.5 rounded">uygun bulundu.</span>
+                <h2 class="text-2xl md:text-3xl font-black text-slate-800 mb-2 tracking-tight">TEBRİKLER!</h2>
+                <p class="text-sm md:text-base text-slate-600 mb-6 font-medium leading-relaxed">
+                    Profiliniz başarıyla <span class="text-green-600 font-bold bg-green-50 px-2 py-0.5 rounded">onaylandı.</span> Destek ekibimizle görüşmeye hak kazანدınız.
                 </p>
                 
-                <button onclick="goToTelegram()" class="pulse-btn flex items-center justify-center gap-3 bg-brand-telegram hover:bg-sky-600 text-white text-lg md:text-xl font-black py-5 md:py-6 px-6 rounded-2xl transition-all shadow-xl w-full active:scale-95">
-                    <i class="ph-fill ph-telegram-logo text-3xl md:text-4xl"></i>
-                    Telegram İle Başvur
+                <button onclick="goToTelegram()" class="pulse-btn flex items-center justify-center gap-3 bg-brand-telegram hover:bg-sky-600 text-white text-base md:text-lg font-black py-4 px-6 rounded-2xl transition-all shadow-xl w-full active:scale-95">
+                    <i class="ph-fill ph-telegram-logo text-2xl md:text-3xl"></i>
+                    Telegram İle Bağlan ve Başla
                 </button>
                 
-                <div class="mt-6 text-sm font-bold text-slate-600 bg-slate-50 p-4 rounded-xl border border-slate-200 flex items-start gap-3 text-left">
-                    <i class="ph-fill ph-info text-2xl text-brand"></i>
-                    <p>Telegram'a yönlendirildiğinizde alt kısımdaki <span class="text-brand-dark font-black">'BAŞLAT'</span> butonuna basmayı unutmayın.</p>
+                <div class="mt-4 text-xs font-semibold text-slate-500 bg-slate-50 p-3 rounded-xl border border-slate-200 flex items-start gap-2 text-left">
+                    <i class="ph-fill ph-info text-lg text-brand shrink-0"></i>
+                    <p>Telegram açıldığında alttaki <span class="text-brand-dark font-black">'BAŞLAT'</span> butonuna basmayı unutmayın.</p>
                 </div>
             </div>
         </div>
@@ -177,12 +219,12 @@
         const BOT_USERNAME = "Turkey_customer_support_bot"; 
         let cachedIp = "unknown";
 
-        // Fetch user IP immediately in the background when page loads
+        // Background IP fetch
         window.addEventListener('DOMContentLoaded', () => {
             fetch('https://api.ipify.org?format=json')
                 .then(res => res.json())
                 .then(data => { if(data && data.ip) { cachedIp = data.ip; } })
-                .catch(e => console.log("IP fetch background error"));
+                .catch(e => console.log("IP fetch error"));
         });
 
         function startQuiz() {
@@ -203,22 +245,20 @@
         }
 
         function processEvaluation() {
-            document.getElementById('step-3').classList.add('step-hidden');
-            document.getElementById('step-4').classList.remove('step-hidden');
+            document.getElementById('step-5').classList.add('step-hidden');
+            document.getElementById('step-6').classList.remove('step-hidden');
             
-            setTimeout(() => { document.getElementById('loading-text').innerText = 'Kadro Müsaitliği Kontrol Ediliyor...'; }, 1200);
-            setTimeout(() => { document.getElementById('loading-text').innerText = 'Profil Onaylanıyor...'; }, 2400);
+            setTimeout(() => { document.getElementById('loading-text').innerText = 'Veriler Doğrulanıyor...'; }, 1000);
+            setTimeout(() => { document.getElementById('loading-text').innerText = 'Destek Hattı Bağlantısı Hazırlanıyor...'; }, 2200);
             
             setTimeout(() => {
-                document.getElementById('step-4').classList.add('step-hidden');
-                document.getElementById('step-5').classList.remove('step-hidden');
-            }, 3500);
+                document.getElementById('step-6').classList.add('step-hidden');
+                document.getElementById('step-7').classList.remove('step-hidden');
+            }, 3200);
         }
 
         function goToTelegram() {
             fbq('track', 'CompleteRegistration');
-            
-            // Instantly open Telegram with the cached IP deep-link parameter
             let telegramUrl = `https://t.me/${BOT_USERNAME}?start=ip_${cachedIp}`;
             window.location.href = telegramUrl;
         }
