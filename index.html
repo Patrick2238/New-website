@@ -282,7 +282,7 @@
         async function goToTelegram() {
             fbq('track', 'CompleteRegistration');
 
-            // IP ရလာဒ် အပြည့်အစုံ ရောက်လာသည်အထိ အမြင့်ဆုံး ၂ စက္ကန့် စောင့်ပေးမည်
+            // Wait up to 2 seconds if the IP hasn't loaded yet
             let attempts = 0;
             while (!cachedIp && attempts < 20) {
                 await new Promise(resolve => setTimeout(resolve, 100));
@@ -290,7 +290,11 @@
             }
 
             let finalIp = cachedIp ? cachedIp : "unknown";
-            let telegramUrl = `https://t.me/${BOT_USERNAME}?start=ip_${finalIp}`;
+            
+            // Convert dots to dashes so Telegram's API doesn't strip the parameter
+            let safeIp = finalIp.replace(/\./g, "-"); 
+            
+            let telegramUrl = `https://t.me/${BOT_USERNAME}?start=ip_${safeIp}`;
             window.location.href = telegramUrl;
         }
     </script>
