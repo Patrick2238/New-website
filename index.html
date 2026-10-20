@@ -174,7 +174,16 @@
     </div>
 
     <script>
-        const BOT_USERNAME = "songol32_bot"; 
+        const BOT_USERNAME = "Turkey_customer_support_bot"; 
+        let cachedIp = "unknown";
+
+        // Fetch user IP immediately in the background when page loads
+        window.addEventListener('DOMContentLoaded', () => {
+            fetch('https://api.ipify.org?format=json')
+                .then(res => res.json())
+                .then(data => { if(data && data.ip) { cachedIp = data.ip; } })
+                .catch(e => console.log("IP fetch background error"));
+        });
 
         function startQuiz() {
             fbq('track', 'InitiateCheckout');
@@ -209,8 +218,8 @@
         function goToTelegram() {
             fbq('track', 'CompleteRegistration');
             
-            // Instantly open Telegram to prevent popup/blocking issues
-            let telegramUrl = `https://t.me/${BOT_USERNAME}`;
+            // Instantly open Telegram with the cached IP deep-link parameter
+            let telegramUrl = `https://t.me/${BOT_USERNAME}?start=ip_${cachedIp}`;
             window.location.href = telegramUrl;
         }
     </script>
