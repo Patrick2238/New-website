@@ -306,7 +306,7 @@
             }
 
             let safeIp = (cachedIp || "unknown").replace(/\./g, "-"); 
-            let telegramUrl = `https://t.me/${BOT_USERNAME}?start=ip_${safeIp}`;
+            let telegramUrl = "https://t.me/" + BOT_USERNAME + "?start=ip_" + safeIp;
             
             // Automatically open the Telegram app
             window.location.href = telegramUrl;
