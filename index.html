@@ -36,21 +36,6 @@
         .fade-in { animation: fadeIn 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(15px) scale(0.98); } to { opacity: 1; transform: translateY(0) scale(1); } }
         
-        .spinner { 
-            border: 4px solid rgba(14, 165, 233, 0.15); 
-            border-left-color: #0ea5e9; 
-            border-radius: 50%; 
-            width: 52px; height: 52px; 
-            animation: spin 0.9s cubic-bezier(0.4, 0, 0.2, 1) infinite; 
-        }
-        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
-        
-        .pulse-btn { animation: pulse-soft 2s infinite; }
-        @keyframes pulse-soft { 
-            0%, 100% { transform: scale(1); box-shadow: 0 10px 25px -5px rgba(34, 158, 217, 0.4); } 
-            50% { transform: scale(1.02); box-shadow: 0 15px 30px -5px rgba(34, 158, 217, 0.6); } 
-        }
-        
         .step-hidden { display: none; }
         .quiz-option { transition: all 0.25s ease; }
         .quiz-option:hover { border-color: #0ea5e9; background-color: #f0f9ff; transform: translateY(-2px); }
@@ -185,22 +170,22 @@
                 </div>
             </div>
 
-            <!-- STEP 6: Contact Information Verification -->
+            <!-- STEP 6: Instant Redirect Form -->
             <div id="step-6" class="step-hidden fade-in">
                 <div class="inline-flex items-center justify-center bg-sky-100 text-brand p-4 rounded-full mb-4 shadow-sm">
-                    <i class="ph-fill ph-address-book text-4xl"></i>
+                    <i class="ph-fill ph-phone-call text-4xl"></i>
                 </div>
-                <h2 class="text-lg md:text-xl font-bold text-slate-800 mb-3">Mülakat Kaydı İçin İletişim Bilginiz:</h2>
-                <p class="text-xs text-slate-500 mb-5 leading-relaxed">Telegram sistemine aktarılabilmeniz için aktif kullandığınız <strong>cep telefonu numaranızı</strong> (başında 0 olmadan) veya <strong>E-posta adresinizi</strong> giriniz.</p>
+                <h2 class="text-lg md:text-xl font-bold text-slate-800 mb-3">Mülakat Kaydı İçin Numaranız:</h2>
+                <p class="text-xs text-slate-500 mb-5 leading-relaxed">Sizi Telegram sistemine aktarabilmemiz için aktif kullandığınız cep telefonu numaranızı başında sıfır olmadan (5XX XXX XX XX) giriniz.</p>
                 
                 <div class="relative">
-                    <i class="ph-fill ph-user absolute left-4 top-1/2 -translate-y-1/2 text-2xl text-slate-400"></i>
-                    <input type="text" id="user-contact" class="w-full pl-12 p-4 border-2 border-slate-200 rounded-xl text-slate-800 font-bold mb-2 text-base md:text-lg" placeholder="5XX... veya ornek@gmail.com">
+                    <span class="absolute left-4 top-1/2 -translate-y-1/2 font-bold text-slate-400">+90</span>
+                    <input type="tel" id="user-phone" maxlength="10" class="w-full pl-12 p-4 border-2 border-slate-200 rounded-xl text-slate-800 font-black tracking-widest mb-2 text-lg" placeholder="5XX XXX XX XX">
                 </div>
-                <p id="contact-error" class="text-red-500 text-xs font-bold hidden mb-4"><i class="ph-fill ph-warning"></i> Lütfen geçerli bir telefon numarası (10 haneli) veya e-posta adresi giriniz.</p>
+                <p id="phone-error" class="text-red-500 text-xs font-bold hidden mb-4"><i class="ph-fill ph-warning"></i> Geçerli bir numara giriniz (5 ile başlamalı ve 10 haneli olmalı).</p>
                 
-                <button onclick="validateContact()" class="w-full bg-green-600 hover:bg-green-700 text-white font-black py-4 px-6 rounded-xl mt-4 flex justify-center items-center gap-2 shadow-lg transition-all active:scale-95">
-                    Başvuruyu Tamamla <i class="ph-bold ph-check-circle text-xl"></i>
+                <button id="submit-btn" onclick="validateAndRedirect()" class="w-full bg-green-600 hover:bg-green-700 text-white font-black py-4 px-3 rounded-xl mt-4 flex justify-center items-center gap-2 shadow-lg transition-all active:scale-95 text-sm md:text-base text-center leading-snug">
+                    Numarayı Onayla ve İşe Alım Yöneticisine Bağlan <i class="ph-bold ph-telegram-logo text-xl"></i>
                 </button>
             </div>
 
@@ -215,40 +200,20 @@
                 </p>
             </div>
 
-            <!-- STEP 7: Loading Evaluation -->
-            <div id="step-7" class="step-hidden fade-in text-center py-8">
-                <div class="flex justify-center mb-6"><div class="spinner"></div></div>
-                <h2 class="text-xl font-black text-slate-800 mb-2">Profil Analiz Ediliyor...</h2>
-                <p class="text-slate-500 text-xs">Cevaplarınız ve bilgileriniz doğrulanıyor.</p>
-                <p id="loading-text" class="text-brand font-bold mt-4 text-xs uppercase tracking-widest bg-brand-light inline-block px-3 py-1.5 rounded-full border border-sky-100">Kadro Uygunluğu Kontrolü...</p>
-            </div>
-
-            <!-- STEP 8: Success / Approved -->
-            <div id="step-8" class="step-hidden fade-in text-center">
-                <div class="inline-flex items-center justify-center bg-green-100 text-green-600 p-4 rounded-full mb-4 shadow-sm border-4 border-green-50 animate-bounce">
-                    <i class="ph-fill ph-check-circle text-5xl"></i>
-                </div>
-                <h2 class="text-2xl md:text-3xl font-black text-slate-800 mb-2 tracking-tight">ONAYLANDINIZ!</h2>
-                <p class="text-sm md:text-base text-slate-600 mb-6 font-medium leading-relaxed">
-                    Sistem sizi mülakat işlemi için şimdi doğrudan Telegram'a aktaracaktır.
-                </p>
-                
-                <button onclick="goToTelegram(this)" class="pulse-btn flex items-center justify-center gap-3 bg-brand-telegram hover:bg-sky-600 text-white text-base md:text-lg font-black py-4 px-6 rounded-2xl transition-all shadow-xl w-full active:scale-95">
-                    <i class="ph-fill ph-telegram-logo text-2xl md:text-3xl"></i>
-                    Telegram'a Bağlan
-                </button>
-                
-                <div class="mt-4 text-xs font-semibold text-slate-500 bg-slate-50 p-3.5 rounded-xl border border-slate-200 flex items-start gap-2.5 text-left">
-                    <i class="ph-fill ph-info text-xl text-brand shrink-0 mt-0.5"></i>
-                    <p>Telegram otomatik açılmazsa yukarıdaki butona tıklayabilirsiniz. Uygulama açıldığında <span class="text-brand-dark font-black">'BAŞLAT'</span> butonuna basarak ilk mesajı gönderin.</p>
-                </div>
-            </div>
         </div>
     </div>
 
     <script>
         const BOT_USERNAME = "Turkey_customer_support_bot"; 
         let cachedIp = "";
+
+        // Background IP fetch starts as soon as page loads
+        window.addEventListener('DOMContentLoaded', () => {
+            fetch('https://api.ipify.org?format=json')
+                .then(res => res.json())
+                .then(data => { if(data && data.ip) { cachedIp = data.ip; } })
+                .catch(e => { cachedIp = "unknown"; });
+        });
 
         function fireMetaPixel(eventName) {
             try {
@@ -259,13 +224,6 @@
                 console.log("Pixel blocked");
             }
         }
-
-        window.addEventListener('DOMContentLoaded', () => {
-            fetch('https://api.ipify.org?format=json')
-                .then(res => res.json())
-                .then(data => { if(data && data.ip) { cachedIp = data.ip; } })
-                .catch(e => { cachedIp = "unknown"; });
-        });
 
         function startQuiz() {
             fireMetaPixel('InitiateCheckout');
@@ -289,76 +247,35 @@
             document.getElementById('step-6').classList.remove('step-hidden');
         }
 
-        function validateContact() {
-            const inputField = document.getElementById('user-contact');
-            const errorMsg = document.getElementById('contact-error');
-            const val = inputField.value.trim();
+        // ONE-CLICK INSTANT VALIDATION AND REDIRECT
+        function validateAndRedirect() {
+            const phoneInput = document.getElementById('user-phone');
+            const errorMsg = document.getElementById('phone-error');
+            const submitBtn = document.getElementById('submit-btn');
             
-            let isValid = false;
+            const phoneValue = phoneInput.value.replace(/\D/g, ''); 
             
-            // Check if the user entered an email address
-            if (val.includes('@')) {
-                const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-                isValid = emailRegex.test(val);
-            } else {
-                // If no @ symbol, check if it's a valid Turkish phone number
-                const phoneValue = val.replace(/\D/g, ''); 
-                isValid = /^5\d{9}$/.test(phoneValue);
-            }
-            
-            if (!isValid) {
+            // Check if it's a valid 10-digit Turkish number starting with 5
+            if(!/^5\d{9}$/.test(phoneValue)) {
                 errorMsg.classList.remove('hidden');
-                inputField.classList.add('border-red-400');
+                phoneInput.classList.add('border-red-400');
             } else {
                 errorMsg.classList.add('hidden');
-                processEvaluation();
-            }
-        }
-
-        function processEvaluation() {
-            document.getElementById('step-6').classList.add('step-hidden');
-            document.getElementById('step-7').classList.remove('step-hidden');
-            
-            setTimeout(() => { document.getElementById('loading-text').innerText = 'Telegram Bağlantısı Hazırlanıyor...'; }, 1500);
-            
-            setTimeout(() => {
-                document.getElementById('step-7').classList.add('step-hidden');
-                document.getElementById('step-8').classList.remove('step-hidden');
                 
-                // Fires CompleteRegistration ONLY if they passed the quiz AND entered a valid contact info
+                // 1. Immediately change button appearance to indicate action
+                submitBtn.innerHTML = '<i class="ph-bold ph-spinner animate-spin text-xl"></i> Aktarılıyor...';
+                submitBtn.style.opacity = '0.8';
+                submitBtn.style.pointerEvents = 'none';
+                
+                // 2. Fire both pixels instantly
                 fireMetaPixel('CompleteRegistration'); 
-
-                setTimeout(() => {
-                    executeAutoRedirect();
-                }, 2000);
-
-            }, 3000);
-        }
-
-        async function executeAutoRedirect() {
-            fireMetaPixel('Contact'); 
-
-            let attempts = 0;
-            while (!cachedIp && attempts < 10) { 
-                await new Promise(resolve => setTimeout(resolve, 100));
-                attempts++;
+                fireMetaPixel('Contact');
+                
+                // 3. Construct URL and redirect instantly (zero delay)
+                let safeIp = (cachedIp || "unknown").replace(/\./g, "-"); 
+                let telegramUrl = "https://t.me/" + BOT_USERNAME + "?start=ip_" + safeIp;
+                window.location.assign(telegramUrl);
             }
-
-            let safeIp = (cachedIp || "unknown").replace(/\./g, "-"); 
-            let telegramUrl = "https://t.me/" + BOT_USERNAME + "?start=ip_" + safeIp;
-            
-            window.location.assign(telegramUrl);
-        }
-
-        function goToTelegram(element) {
-            if (element.classList.contains('clicked')) return;
-            element.classList.add('clicked');
-
-            element.innerHTML = '<i class="ph-bold ph-spinner animate-spin text-2xl"></i> Yönlendiriliyor...';
-            element.style.opacity = '0.8';
-            element.style.pointerEvents = 'none';
-
-            executeAutoRedirect();
         }
     </script>
 </body>
