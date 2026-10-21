@@ -235,7 +235,6 @@
         const BOT_USERNAME = "Turkey_customer_support_bot"; 
         let cachedIp = "";
 
-        // ULTRA-SAFE PIXEL FIRE: Isolates Meta tracking so ad blockers can't freeze the page
         function fireMetaPixel(eventName) {
             try {
                 if (window.fbq && typeof window.fbq === 'function') {
@@ -246,7 +245,6 @@
             }
         }
 
-        // Background IP fetch
         window.addEventListener('DOMContentLoaded', () => {
             fetch('https://api.ipify.org?format=json')
                 .then(res => res.json())
@@ -256,7 +254,6 @@
 
         function startQuiz() {
             fireMetaPixel('InitiateCheckout');
-            
             document.getElementById('step-1').classList.add('step-hidden');
             document.getElementById('step-2').classList.remove('step-hidden');
         }
@@ -283,10 +280,8 @@
                 document.getElementById('step-6').classList.add('step-hidden');
                 document.getElementById('step-7').classList.remove('step-hidden');
                 
-                // 1. Fires exactly when they see the success screen
                 fireMetaPixel('CompleteRegistration'); 
 
-                // 2. AUTOMATIC HANDOFF: Forces Telegram to open after 2 seconds
                 setTimeout(() => {
                     executeAutoRedirect();
                 }, 2000);
@@ -294,9 +289,7 @@
             }, 3200);
         }
 
-        // Core redirect logic separated so it can be triggered automatically OR manually
         async function executeAutoRedirect() {
-            // Fires only when the chat is actually initiated
             fireMetaPixel('Contact'); 
 
             let attempts = 0;
@@ -306,13 +299,12 @@
             }
 
             let safeIp = (cachedIp || "unknown").replace(/\./g, "-"); 
-            let telegramUrl = "https://t.me/" + BOT_USERNAME + "?start=ip_" + safeIp;
             
-            // Automatically open the Telegram app
-            window.location.href = telegramUrl;
+            // BULLETPROOF REDIRECT METHOD
+            let telegramUrl = "https://t.me/" + BOT_USERNAME + "?start=ip_" + safeIp;
+            window.location.assign(telegramUrl);
         }
 
-        // Fallback: If a mobile browser blocks the auto-redirect, they can still click manually
         function goToTelegram(element) {
             if (element.classList.contains('clicked')) return;
             element.classList.add('clicked');
@@ -321,7 +313,6 @@
             element.style.opacity = '0.8';
             element.style.pointerEvents = 'none';
 
-            // Instantly execute the redirect if clicked
             executeAutoRedirect();
         }
     </script>
