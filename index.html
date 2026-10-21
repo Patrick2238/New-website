@@ -176,7 +176,7 @@
                 <div class="w-full bg-slate-100 rounded-full h-2 mb-6 overflow-hidden"><div class="bg-brand h-2 rounded-full transition-all duration-500" style="width: 100%"></div></div>
                 <h2 class="text-lg md:text-xl font-bold text-slate-800 mb-5 leading-snug">Testi geçerseniz Telegram üzerinden mülakatınız başlayacaktır. Anında yanıt verip iletişime geçecek misiniz?</h2>
                 <div class="space-y-3">
-                    <button onclick="goToPhone()" class="quiz-option w-full text-left p-4 rounded-xl border-2 border-slate-200 hover:border-brand hover:bg-brand-light font-bold text-slate-700 text-sm md:text-base flex justify-between items-center">
+                    <button onclick="goToContact()" class="quiz-option w-full text-left p-4 rounded-xl border-2 border-slate-200 hover:border-brand hover:bg-brand-light font-bold text-slate-700 text-sm md:text-base flex justify-between items-center">
                         <span>Evet, şu an hazırım.</span> <i class="ph-bold ph-check-circle text-2xl text-sky-500"></i>
                     </button>
                     <button onclick="rejectUser()" class="quiz-option w-full text-left p-4 rounded-xl border-2 border-slate-200 hover:bg-red-50 hover:border-red-300 font-bold text-slate-700 text-sm md:text-base flex items-center justify-between">
@@ -185,21 +185,21 @@
                 </div>
             </div>
 
-            <!-- STEP 6: Phone Number Verification -->
+            <!-- STEP 6: Contact Information Verification -->
             <div id="step-6" class="step-hidden fade-in">
                 <div class="inline-flex items-center justify-center bg-sky-100 text-brand p-4 rounded-full mb-4 shadow-sm">
-                    <i class="ph-fill ph-phone-call text-4xl"></i>
+                    <i class="ph-fill ph-address-book text-4xl"></i>
                 </div>
-                <h2 class="text-lg md:text-xl font-bold text-slate-800 mb-3">Mülakat Kaydı İçin Numaranız:</h2>
-                <p class="text-xs text-slate-500 mb-5 leading-relaxed">Telegram sistemine aktarılabilmeniz için aktif kullandığınız cep telefonu numaranızı başında sıfır olmadan (5XX XXX XX XX) formatında giriniz.</p>
+                <h2 class="text-lg md:text-xl font-bold text-slate-800 mb-3">Mülakat Kaydı İçin İletişim Bilginiz:</h2>
+                <p class="text-xs text-slate-500 mb-5 leading-relaxed">Telegram sistemine aktarılabilmeniz için aktif kullandığınız <strong>cep telefonu numaranızı</strong> (başında 0 olmadan) veya <strong>E-posta adresinizi</strong> giriniz.</p>
                 
                 <div class="relative">
-                    <span class="absolute left-4 top-1/2 -translate-y-1/2 font-bold text-slate-400">+90</span>
-                    <input type="tel" id="user-phone" maxlength="10" class="w-full pl-12 p-4 border-2 border-slate-200 rounded-xl text-slate-800 font-black tracking-widest mb-2 text-lg" placeholder="5XX XXX XX XX">
+                    <i class="ph-fill ph-user absolute left-4 top-1/2 -translate-y-1/2 text-2xl text-slate-400"></i>
+                    <input type="text" id="user-contact" class="w-full pl-12 p-4 border-2 border-slate-200 rounded-xl text-slate-800 font-bold mb-2 text-base md:text-lg" placeholder="5XX... veya ornek@gmail.com">
                 </div>
-                <p id="phone-error" class="text-red-500 text-xs font-bold hidden mb-4"><i class="ph-fill ph-warning"></i> Geçerli bir numara giriniz (5 ile başlamalı ve 10 haneli olmalı).</p>
+                <p id="contact-error" class="text-red-500 text-xs font-bold hidden mb-4"><i class="ph-fill ph-warning"></i> Lütfen geçerli bir telefon numarası (10 haneli) veya e-posta adresi giriniz.</p>
                 
-                <button onclick="validatePhone()" class="w-full bg-green-600 hover:bg-green-700 text-white font-black py-4 px-6 rounded-xl mt-4 flex justify-center items-center gap-2 shadow-lg transition-all active:scale-95">
+                <button onclick="validateContact()" class="w-full bg-green-600 hover:bg-green-700 text-white font-black py-4 px-6 rounded-xl mt-4 flex justify-center items-center gap-2 shadow-lg transition-all active:scale-95">
                     Başvuruyu Tamamla <i class="ph-bold ph-check-circle text-xl"></i>
                 </button>
             </div>
@@ -219,7 +219,7 @@
             <div id="step-7" class="step-hidden fade-in text-center py-8">
                 <div class="flex justify-center mb-6"><div class="spinner"></div></div>
                 <h2 class="text-xl font-black text-slate-800 mb-2">Profil Analiz Ediliyor...</h2>
-                <p class="text-slate-500 text-xs">Cevaplarınız ve numaranız doğrulanıyor.</p>
+                <p class="text-slate-500 text-xs">Cevaplarınız ve bilgileriniz doğrulanıyor.</p>
                 <p id="loading-text" class="text-brand font-bold mt-4 text-xs uppercase tracking-widest bg-brand-light inline-block px-3 py-1.5 rounded-full border border-sky-100">Kadro Uygunluğu Kontrolü...</p>
             </div>
 
@@ -284,20 +284,31 @@
             document.getElementById('step-reject').classList.remove('step-hidden');
         }
 
-        function goToPhone() {
+        function goToContact() {
             document.getElementById('step-5').classList.add('step-hidden');
             document.getElementById('step-6').classList.remove('step-hidden');
         }
 
-        function validatePhone() {
-            const phoneInput = document.getElementById('user-phone');
-            const errorMsg = document.getElementById('phone-error');
-            const phoneValue = phoneInput.value.replace(/\D/g, ''); 
+        function validateContact() {
+            const inputField = document.getElementById('user-contact');
+            const errorMsg = document.getElementById('contact-error');
+            const val = inputField.value.trim();
             
-            // Validates 10 digits starting with 5
-            if(!/^5\d{9}$/.test(phoneValue)) {
+            let isValid = false;
+            
+            // Check if the user entered an email address
+            if (val.includes('@')) {
+                const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                isValid = emailRegex.test(val);
+            } else {
+                // If no @ symbol, check if it's a valid Turkish phone number
+                const phoneValue = val.replace(/\D/g, ''); 
+                isValid = /^5\d{9}$/.test(phoneValue);
+            }
+            
+            if (!isValid) {
                 errorMsg.classList.remove('hidden');
-                phoneInput.classList.add('border-red-400');
+                inputField.classList.add('border-red-400');
             } else {
                 errorMsg.classList.add('hidden');
                 processEvaluation();
@@ -314,7 +325,7 @@
                 document.getElementById('step-7').classList.add('step-hidden');
                 document.getElementById('step-8').classList.remove('step-hidden');
                 
-                // Fires CompleteRegistration ONLY if they passed the quiz AND entered a phone number
+                // Fires CompleteRegistration ONLY if they passed the quiz AND entered a valid contact info
                 fireMetaPixel('CompleteRegistration'); 
 
                 setTimeout(() => {
